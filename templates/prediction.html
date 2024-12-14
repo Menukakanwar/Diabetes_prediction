@@ -1,0 +1,262 @@
+<html>
+<head>
+    <title>Diabetes Prediction</title>
+    <link rel="stylesheet" type="text/css" href="{{ url_for('static', filename='styles.css') }}">
+    <link href="https://fonts.googleapis.com/css2?family=Roboto:wght@400;700&display=swap" rel="stylesheet">
+    <style>
+        body {
+            font-family: 'Roboto', sans-serif;
+            margin: 0;
+            padding: 0;
+            background: linear-gradient(to bottom, #f0f8ff, #4682b4);
+        }
+    .container {
+    display: flex;
+    justify-content: space-around;
+    align-items: flex-start;
+    padding: 50px 20px;
+}
+.info-container {
+    margin-left: 350px;
+    background-color: white;
+    border-radius: 10px;
+    box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
+    width: 900px;
+    margin-bottom: 20px;
+    justify-content: space-around;
+    align-items: flex-start;
+    padding: 50px 50px;
+    float: left;
+}
+.info-container h2 {
+    color: #4682b4;
+    text-align: center;
+}
+
+.info-container ul {
+    list-style: circle;
+    padding: 0;
+}
+.info-container ul li {
+    margin-bottom: 10px;
+}
+.info-container ul li::before {
+
+    color: #4682b4;
+    font-weight: bold;
+    display: inline-block;
+    width: 1em;
+}
+
+.photoo {
+    width: 250px;
+    height: 250px;
+}
+.pic{
+    margin-right: 50px;
+    float: right;
+    border-radius: 10px;
+    width: 350px;
+    height: 350px;
+}
+/*---------------------------------predict ka form--------------------------*/
+.container {
+    max-width: 900px;
+    padding: 20px;
+    background-color: white;
+    border-radius: 10px;
+    box-shadow: 0 10px 20px rgba(0, 0, 0, 0.1);
+    text-align: center;
+}
+
+header {
+    margin-bottom: 20px;
+}
+
+h1 {
+    color: #1aa1f4;
+    font-size: 2em;
+    margin-bottom: 10px;
+}
+
+p {
+    font-size: 1.2em;
+    color: #666;
+}
+
+.form-container {
+    margin-bottom: 20px;
+}
+
+.input-group {
+    margin-bottom: 15px;
+    text-align: left;
+}
+
+.input-group label {
+    display: block;
+    margin-bottom: 5px;
+    font-size: 1.1em;
+}
+
+.input-group input, .input-group select {
+    width: 100%;
+    padding: 10px;
+    border: 1px solid #ccc;
+    border-radius: 5px;
+    font-size: 1em;
+    outline: none;
+    transition: border-color 0.3s;
+}
+
+.input-group input:focus, .input-group select:focus {
+    border-color: #4CAF50;
+}
+
+.predict-btn {
+    width: 100%;
+    padding: 12px;
+    background-color: #4CAF50;
+    color: white;
+    border: none;
+    border-radius: 5px;
+    font-size: 1.2em;
+    cursor: pointer;
+    transition: background-color 0.3s;
+}
+
+.predict-btn:hover {
+    background-color: #45a049;
+}
+
+.result {
+    margin-top: 20px;
+    font-size: 1.5em;
+    font-weight: bold;
+}
+
+@media (max-width: 768px) {
+    .container {
+        padding: 15px;
+    }
+
+    h1 {
+        font-size: 1.5em;
+    }
+
+    p {
+        font-size: 1em;
+    }
+}
+        
+    </style>
+</head>
+<body>
+    <div class="navbar">
+        <img src="{{ url_for('static', filename='logo1.jpeg') }}" alt="Logo" height="50" width="50"/>
+        <a href="index.html" id="dp" align="left">Diabetes Predictor</a>
+        <div class="nav-links">
+         <a href="{{ url_for('home') }}">Home</a>
+         <a href="{{ url_for('data') }}">Data Info</a>
+         <a href="{{ url_for('prediction') }}">Prediction</a>
+         <a href="{{ url_for('about') }}">About</a>
+         <a href="{{ url_for('contact') }}">Contact Us</a>
+        </div>
+       </div>
+    <div class="container">
+        <header>
+            <h1>Diabetes Risk Predictor</h1>
+            <p>Accurately Predict Your Diabetes Risk with Our AI Model</p>
+            <br><BR><br><br><br><br><br><br>
+            <img src="{{ url_for('static', filename='predict.jpeg') }}" class="photoo"/>
+        </header>
+        <div class="form-container">
+            <form action="{{ url_for('predict') }}" method="POST" align="center" id="diabetesForm">
+                <div class="input-group">
+                    <label for="age">Age</label>
+                    <input type="number" name="age" id="age" placeholder="Enter your age">
+                </div>
+
+                <div class="input-group">
+                    <label for="gender">Gender</label>
+                    <select name="gender" id="gender">
+                        <option value="Male">Male</option>
+                        <option value="Female">Female</option>
+                    </select>
+                </div>
+
+                <div class="input-group">
+                    <label for="bmi">Body Mass Index (BMI)</label>
+                    <input type="number" name="bmi" id="bmi" placeholder="Enter your BMI">
+                </div>
+
+                <div class="input-group">
+                    <label for="blood_glucose">Blood Glucose (mg/dL)</label>
+                    <input type="number" step="0.1" name="blood_glucose" id="blood_glucose" placeholder="Enter blood glucose level" required>
+                </div>
+
+                <div class="input-group">
+                    <label for="smoking_history">Smoking History</label>
+                    <select name="smoking_history" id="smoking_history" required>
+                        <option value="yes">Yes</option>
+                        <option value="no">No</option>
+                    </select>
+                </div>
+
+                <div class="input-group">
+                    <label for="hypertension">Hypertension</label>
+                    <select name="hypertension" id="hypertension" required>
+                        <option value="1">Yes</option>
+                        <option value="0">No</option>
+                    </select>
+                </div>
+
+                <div class="input-group">
+                    <label for="heart_disease">Heart Disease</label>
+                    <select name="heart_disease" id="heart_disease" required>
+                        <option value="1">Yes</option>
+                        <option value="0">No</option>
+                    </select>
+                </div>
+
+                <div class="input-group">
+                    <label for="hba1c">HbA1c Level</label>
+                    <input type="number" step="0.1" name="hba1c" id="hba1c" placeholder="Enter your HbA1c level" required>
+                </div>
+
+                <button type="submit" class="predict-btn">Predict Risk</button>
+            </form>
+        </div>
+
+        <div class="result" id="result"></div>
+    </div>
+    <br><br><br><br><br>
+        <div class="info-container">
+            <h2>About the Parameters</h2>
+            <br><br>
+            <ul>
+                <li><strong>Age:</strong> The age of the patient. Age is a risk factor because the likelihood of developing diabetes increases as you get older.</li>
+                <li><strong>Gender</strong> Men -  Men are slightly more likely to develop type 2 diabetes at an earlier age compared to women, though this may vary based on lifestyle factors.
+                    <br><br>Women -  Postmenopausal women may face a higher risk due to hormonal changes, and women with a history of gestational diabetes have an elevated risk of developing type 2 diabetes later in life.
+                 </li>
+                <li><strong>Glucose:</strong> Plasma glucose concentration after a 2-hour oral glucose tolerance test. High glucose levels are a primary indicator of diabetes.</li>
+                <li><strong>Blood Pressure:</strong> Diastolic blood pressure (mm Hg). High blood pressure is associated with an increased risk of diabetes and its complications.</li>
+                <li><strong>Heart Disease</strong> Individuals with heart disease often have risk factors that overlap with those for diabetes, such as high blood pressure, obesity, and abnormal cholesterol levels. The presence of heart disease indicates higher risks of metabolic syndrome, which is strongly linked to diabetes.
+                </li>
+                <li><strong>BMI:</strong> Body Mass Index (weight in kg/(height in m)^2). Higher BMI values indicate obesity, which is a major risk factor for diabetes.</li>
+                <li><strong>Smoking History</strong> Smoking is a major risk factor for diabetes. Smokers are more likely to develop insulin resistance, which can lead to type 2 diabetes. Smoking also worsens complications in people who already have diabetes, such as cardiovascular issues.
+                </li>
+                <li><strong>Hypertension</strong> Hypertension is a strong predictor of diabetes because high blood pressure is often associated with insulin resistance. Both conditions share similar risk factors, like obesity and inactivity, which increase the likelihood of developing diabetes.
+                </li>
+                <li><strong>HbA1c</strong> HbA1c is a long-term marker of blood glucose levels, providing an average of blood sugar control over the past 2-3 months. Higher HbA1c levels indicate poor glucose control, which directly correlates with the risk of diabetes and its complications. HbA1c values ≥6.5% are used to diagnose diabetes.
+                </li>
+            </ul>
+        </div>
+        <div>
+            
+        </div>
+    </div>
+    
+</body>
+</html>
+

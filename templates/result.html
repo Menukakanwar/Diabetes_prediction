@@ -1,0 +1,15 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link rel="stylesheet" type="text/css" href="{{ url_for('static', filename='styles.css') }}">
+    <title>Prediction Result</title>
+</head>
+<body>
+    <h1 id="heding">Predicted Result</h1><br><br><br>
+    <p id="ans">{{ prediction_text }}</p>
+    <br>
+    <a href="{{ url_for('home') }}" class="neu-button">Go Back</a>
+</body>
+</html>
